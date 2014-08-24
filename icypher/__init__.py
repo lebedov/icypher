@@ -5,7 +5,10 @@ from IPython.config.configurable import Configurable
 
 from py2neo import neo4j
 
-def parse(cell):
+def parse(cell, self):
+    opts, cell = self.parse_options(cell, '')
+    print opts, cell
+
     uri = 'http://localhost:7474/db/data/'
     parts = [part.strip() for part in cell.split(None, 1)]
     if not parts:
@@ -18,7 +21,7 @@ def parse(cell):
             query = ''
     else:
         query = cell
-    return {'uri': uri.strip(), 'query': query.strip()}
+    return {'uri': uri.strip(), 'query': query.strip(), 'opts': opts}
 
 @magics_class
 class CypherMagic(Magics, Configurable):    
@@ -45,7 +48,7 @@ class CypherMagic(Magics, Configurable):
         http://localhost:7474/db/data/ is assumed.
         """
 
-        parsed = parse('%s\n%s' % (line, cell))
+        parsed = parse('%s\n%s' % (line, cell), self)
 
         if self.db is None or self.db.__uri__ != parsed['uri']:
             self.db = neo4j.GraphDatabaseService(parsed['uri'])
@@ -53,7 +56,11 @@ class CypherMagic(Magics, Configurable):
         if not parsed['query']:
             raise Exception('no Cypher query specified')
         q = neo4j.CypherQuery(self.db, parsed['query'])
-        return [r.values[0] for r in q.execute().data]
+
+        if 'n' in parsed['opts']:
+            pass
+        else:
+            return [r.values for r in q.execute().data]
 
 def load_ipython_extension(ip):
     ip.register_magics(CypherMagic)
