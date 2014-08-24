@@ -7,7 +7,6 @@ from py2neo import neo4j
 
 def parse(cell, self):
     opts, cell = self.parse_options(cell, '')
-    print opts, cell
 
     uri = 'http://localhost:7474/db/data/'
     parts = [part.strip() for part in cell.split(None, 1)]
