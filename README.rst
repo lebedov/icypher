@@ -19,6 +19,18 @@ with ::
 
     %load_ext icypher
 
+Usage Examples
+--------------
+Set database URI and return all nodes: ::
+
+    %%cypher http://localhost:7474/db/data
+    MATCH (n) RETURN n
+
+Create a node using the most recently configured database (or the default if
+none was specified: ::
+
+    %cypher CREATE (n {name: 'foo'}) RETURN n
+
 Development
 -----------
 The latest release of the package may be obtained from
