@@ -50,5 +50,5 @@ See the included AUTHORS.rst file for more information.
 License
 -------
 This software is licensed under the
-`BSD License <http://www.opensource.org/licenses/bsd-license.php>`_.
+`BSD License <http://www.opensource.org/licenses/bsd-license>`_.
 See the included LICENSE.rst file for more information.
