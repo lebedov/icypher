@@ -3,7 +3,7 @@
 # Copyright (c) 2014, Lev Givon
 # All rights reserved.
 # Distributed under the terms of the BSD license:
-# http://www.opensource.org/licenses/bsd-license/
+# http://www.opensource.org/licenses/bsd-license
 
 from IPython.core.magic import Magics, magics_class, line_magic, cell_magic
 from IPython.config.configurable import Configurable

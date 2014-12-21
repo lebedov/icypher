@@ -41,7 +41,7 @@ none was specified: ::
 Development
 -----------
 The latest release of the package may be obtained from
-`Github <https://github.com/lebedov/icypher>`_.
+`GitHub <https://github.com/lebedov/icypher>`_.
 
 Author
 ------
