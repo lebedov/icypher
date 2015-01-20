@@ -24,6 +24,7 @@ LICENSE =            'BSD'
 CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
     'Environment :: Console',
+    'Framework :: IPython',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: BSD License',
     'Operating System :: OS Independent',
