@@ -28,6 +28,10 @@ with ::
 
 Usage Examples
 --------------
+Set database URI with name and password: ::
+
+    %cypher http://john:passwd@localhost:7474/db/data
+
 Set database URI and return all nodes: ::
 
     %%cypher http://localhost:7474/db/data
