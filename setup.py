@@ -13,7 +13,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'icypher'
-VERSION =            '0.1.1'
+VERSION =            '0.1.2'
 AUTHOR =             'Lev Givon'
 AUTHOR_EMAIL =       'lev@columbia.edu'
 URL =                'https://github.com/lebedov/icypher/'
@@ -50,4 +50,4 @@ if __name__ == "__main__":
         url = URL,
         packages = PACKAGES,
         install_requires = ['ipython>=1.0',
-                            'py2neo'])
+                            'py2neo>=2.0'])
