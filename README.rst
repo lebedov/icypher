@@ -28,9 +28,17 @@ with ::
 
 Usage Examples
 --------------
+Use default URI ``http://localhost:7474/db/data``: ::
+
+    %cypher
+
+Set name and password, but use default URI: ::
+  
+    %cypher user:passwd
+
 Set database URI with name and password: ::
 
-    %cypher http://john:passwd@localhost:7474/db/data
+    %cypher http://user:passwd@localhost:7474/db/data
 
 Set database URI and return all nodes: ::
 
