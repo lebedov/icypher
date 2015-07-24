@@ -1,3 +1,5 @@
 include *.rst
 include *.py
+include *.xcf
+include *.png
 exclude MANIFEST.in

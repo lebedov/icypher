@@ -1,7 +1,7 @@
 .. -*- rst -*-
 
-ICypher
-=======
+.. image:: https://raw.githubusercontent.com/lebedov/icypher/master/icypher.png
+    :alt: icypher
 
 Package Description
 -------------------
