@@ -2,19 +2,12 @@
 
 import os
 
-# Install setuptools if it isn't available:
-try:
-    import setuptools
-except ImportError:
-    from ez_setup import use_setuptools
-    use_setuptools()
-
 from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'icypher'
-VERSION =            '0.1.3'
-AUTHOR =             'Lev Givon'
+VERSION =            '0.1.4'
+AUTHOR =             'Lev E. Givon'
 AUTHOR_EMAIL =       'lev@columbia.edu'
 URL =                'https://github.com/lebedov/icypher/'
 DESCRIPTION =        'Cypher access to Neo4J via IPython'
