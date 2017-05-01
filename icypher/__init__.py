@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright (c) 2014-2015, Lev Givon
+# Copyright (c) 2014-2017, Lev E. Givon
 # All rights reserved.
 # Distributed under the terms of the BSD license:
 # http://www.opensource.org/licenses/bsd-license
@@ -8,9 +8,25 @@
 import re
 
 from IPython.core.magic import Magics, magics_class, line_magic, cell_magic
+from IPython.core.display import display_javascript
 from IPython.config.configurable import Configurable
 
+try:
+    from notebook.services.config.manager import ConfigManager
+except:
+    from IPython.html.services.config.manager import ConfigManager
+
 import py2neo
+
+js = """
+require(['notebook/js/codecell'], function(codecell) {
+  codecell.CodeCell.options_default.highlight_modes['magic_application/x-cypher-query'] = {'reg':[/^%%cypher/]};
+  Jupyter.notebook.events.one('kernel_ready.Kernel', function(){
+      Jupyter.notebook.get_cells().map(function(cell){
+          if (cell.cell_type == 'code'){ cell.auto_highlight(); } }) ;
+  });
+});
+"""
 
 # Use older standalone httpstream package because of possible bug in 
 # py2neo-included httpstream package:
@@ -35,7 +51,7 @@ def parse(cell, self):
                 'query': query}
 
     # Check if a URI was specified:
-    if '://' in parts[0]:                
+    if '://' in parts[0]:
         uri = parts[0]
         if len(parts) > 1:
             query = parts[1]
@@ -77,6 +93,10 @@ class CypherMagic(Magics, Configurable):
     uri = None
     default_uri = 'http://localhost:7474/db/data/'
 
+    def __init__(self, *args, **kwargs):
+        super(CypherMagic, self).__init__(*args, **kwargs)
+        display_javascript(js, raw=True)
+        
     @line_magic
     @cell_magic
     def cypher(self, line, cell=''):
@@ -127,7 +147,7 @@ class CypherMagic(Magics, Configurable):
         uri = URI.build(scheme=u.scheme, host=u.host, port=u.port,
                             absolute_path_reference=u.absolute_path_reference,
                             user_info=user_info).string
-        
+
         # Only update the database connection if the user name, password, or URI
         # have changed:
         if self.db is None or changed:
