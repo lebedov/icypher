@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 
 import os
+import re
 
 from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'icypher'
-VERSION =            '0.1.4'
+VERSION =            '0.1.4.1'
 AUTHOR =             'Lev E. Givon'
 AUTHOR_EMAIL =       'lev@columbia.edu'
 URL =                'https://github.com/lebedov/icypher/'
 DESCRIPTION =        'Cypher access to Neo4J via IPython'
-LONG_DESCRIPTION =   DESCRIPTION
+with open('README.rst', 'r') as f:
+    LONG_DESCRIPTION = f.read()
+LONG_DESCRIPTION = re.search('.*(^Package Description.*)', LONG_DESCRIPTION, re.MULTILINE|re.DOTALL).group(1)
 DOWNLOAD_URL =       URL
 LICENSE =            'BSD'
 CLASSIFIERS = [
