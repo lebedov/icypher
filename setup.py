@@ -6,11 +6,10 @@ from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'icypher'
-VERSION =            '0.1.4'
+VERSION =            '0.1.5'
 AUTHOR =             'Lev E. Givon'
 AUTHOR_EMAIL =       'lev@columbia.edu'
-#URL =                'https://github.com/lebedov/icypher/'   #original 
-URL =                'https://github.com/camelia-c/icypher/'  #forked 
+URL =                'https://github.com/lebedov/icypher/'   #original 
 DESCRIPTION =        'Cypher access to Neo4J via IPython'
 LONG_DESCRIPTION =   DESCRIPTION
 DOWNLOAD_URL =       URL
