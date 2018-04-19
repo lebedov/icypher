@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright (c) 2014-2017, Lev E. Givon
+# Copyright (c) 2014-2018, Lev E. Givon
 # All rights reserved.
 # Distributed under the terms of the BSD license:
 # http://www.opensource.org/licenses/bsd-license
@@ -9,11 +9,13 @@ import re
 
 from IPython.core.magic import Magics, magics_class, line_magic, cell_magic
 from IPython.core.display import display_javascript
-from IPython.config.configurable import Configurable
-
+try:
+    from traitlets.config.configurable import Configurable
+except ImportError:
+    from IPython.config.configurable import Configurable
 try:
     from notebook.services.config.manager import ConfigManager
-except:
+except ImportError:
     from IPython.html.services.config.manager import ConfigManager
 
 import py2neo
