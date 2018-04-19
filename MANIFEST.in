@@ -2,4 +2,5 @@ include *.rst
 include *.py
 include *.xcf
 include *.png
+include Makefile
 exclude MANIFEST.in
