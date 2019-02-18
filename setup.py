@@ -46,5 +46,4 @@ if __name__ == "__main__":
         url = URL,
         packages = PACKAGES,
         install_requires = ['ipython>=1.0',
-                            'py2neo>=2.0',
-                            'httpstream==1.3.0'])
+                            'py2neo>=4.0'])

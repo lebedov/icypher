@@ -30,9 +30,7 @@ require(['notebook/js/codecell'], function(codecell) {
 });
 """
 
-# Use older standalone httpstream package because of possible bug in 
-# py2neo-included httpstream package:
-from httpstream.packages.urimagic import URI
+from py2neo.packages.httpstream.packages.urimagic import URI
 
 def parse(cell, self):
     # Set posix=False to preserve quote characters:
