@@ -45,5 +45,5 @@ if __name__ == "__main__":
         long_description = LONG_DESCRIPTION,
         url = URL,
         packages = PACKAGES,
-        install_requires = ['ipython>=1.0',
+        install_requires = ['ipython>=4.0',
                             'py2neo>=4.0'])

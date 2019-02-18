@@ -13,10 +13,6 @@ try:
     from traitlets.config.configurable import Configurable
 except ImportError:
     from IPython.config.configurable import Configurable
-try:
-    from notebook.services.config.manager import ConfigManager
-except ImportError:
-    from IPython.html.services.config.manager import ConfigManager
 
 import py2neo
 
@@ -96,7 +92,7 @@ class CypherMagic(Magics, Configurable):
     def __init__(self, *args, **kwargs):
         super(CypherMagic, self).__init__(*args, **kwargs)
         display_javascript(js, raw=True)
-        
+
     @line_magic
     @cell_magic
     def cypher(self, line, cell=''):
@@ -155,7 +151,7 @@ class CypherMagic(Magics, Configurable):
 
         if parsed['query']:
             if str(py2neo.__version__).startswith("3."):
-                return self.db.run(parsed['query']).data()                
+                return self.db.run(parsed['query']).data()
             else:
                 return self.db.cypher.execute(parsed['query'])
 
