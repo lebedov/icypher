@@ -6,6 +6,10 @@
 # http://www.opensource.org/licenses/bsd-license
 
 import re
+try:
+    import urllib.parse as urlparse
+except ImportError:
+    import urlparse
 
 from IPython.core.magic import Magics, magics_class, line_magic, cell_magic
 from IPython.core.display import display_javascript
@@ -25,8 +29,6 @@ require(['notebook/js/codecell'], function(codecell) {
   });
 });
 """
-
-from py2neo.packages.httpstream.packages.urimagic import URI
 
 def parse(cell, self):
     # Set posix=False to preserve quote characters:
@@ -53,14 +55,13 @@ def parse(cell, self):
             query = parts[1]
 
         # Extract user and passwd (if any) from URI:
-        u = URI(uri)
-        user_info = u.user_info
-        if user_info is None:
+        parsed_uri = urlparse.urlparse(uri)
+        if parsed_uri.username is None:
             pass
-        elif ':' not in user_info:
-            user = user_info
         else:
-            user, passwd = user_info.split(':')
+            user = parsed_uri.username
+            if parsed_uri.password:
+                passwd = parsed_uri.password
 
     # Check if a user:passwd string was specified:
     elif re.search('^[^:]+:[^:]+$', parts[0]):
@@ -74,9 +75,9 @@ def parse(cell, self):
         query = cell
 
     # Reconstruct URI without user/passwd:
-    u = URI(uri)
-    uri = URI.build(scheme=u.scheme, host=u.host, port=u.port,
-            absolute_path_reference=u.absolute_path_reference).string
+    parsed_uri = urlparse.urlparse(uri)
+    parsed_uri = parsed_uri._replace(netloc='%s:%s' % (parsed_uri.hostname, parsed_uri.port))
+    uri = urlparse.urlunparse(parsed_uri)
 
     return {'uri': uri, 'user': user, 'passwd': passwd,
             'query': query.strip()}
@@ -122,7 +123,6 @@ class CypherMagic(Magics, Configurable):
         parsed = parse('%s\n%s' % (line, cell), self)
 
         changed = False
-        u = URI(parsed['uri'])
         if self.user is None or (parsed['user'] and self.user != parsed['user']):
             self.user = parsed['user']
             changed = True
@@ -133,16 +133,19 @@ class CypherMagic(Magics, Configurable):
             self.uri =  parsed['uri']
             changed = True
 
-        if self.user and self.passwd:
-            user_info = self.user+':'+self.passwd
-        elif self.user:
-            user_info = self.user
+        parsed_uri = urlparse.urlparse(parsed['uri'])
+        if parsed_uri.port is not None:
+            hostname = '%s:%s' % (parsed_uri.hostname, parsed_uri.port)
         else:
-            user_info = None
+            hostname = parsed_uri.hostname
+        if self.user and self.passwd:
+            parsed_uri = parsed_uri._replace(netloc='%s:%s@%s' % (self.user, self.passwd, hostname))
+        elif self.user:
+            parsed_uri = parsed_uri._replace(netloc='%s@%s' % (self.user, hostname))
+        else:
+            parsed_uri = parsed_uri._replace(netloc=hostname)
 
-        uri = URI.build(scheme=u.scheme, host=u.host, port=u.port,
-                            absolute_path_reference=u.absolute_path_reference,
-                            user_info=user_info).string
+        uri = urlparse.urlunparse(parsed_uri)
 
         # Only update the database connection if the user name, password, or URI
         # have changed:
