@@ -53,7 +53,7 @@ none was specified: ::
 Retrieve properties of several nodes: ::
 
     results = %cypher MATCH (n) RETURN n
-    print [result.n.properties for result in results]
+    print([result.n.properties for result in results])
 
 Development
 -----------
