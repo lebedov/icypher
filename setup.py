@@ -7,7 +7,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 NAME =               'icypher'
-VERSION =            '0.1.5'
+VERSION =            '0.1.6'
 AUTHOR =             'Lev E. Givon'
 AUTHOR_EMAIL =       'lev@columbia.edu'
 URL =                'https://github.com/lebedov/icypher/'
