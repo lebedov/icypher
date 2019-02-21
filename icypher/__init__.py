@@ -153,10 +153,7 @@ class CypherMagic(Magics, Configurable):
             self.db = py2neo.Graph(uri)
 
         if parsed['query']:
-            if str(py2neo.__version__).startswith("3."):
-                return self.db.run(parsed['query']).data()
-            else:
-                return self.db.cypher.execute(parsed['query'])
+            return self.db.run(parsed['query']).data()
 
 def load_ipython_extension(ip):
     ip.register_magics(CypherMagic)
