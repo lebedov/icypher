@@ -5,7 +5,7 @@
 
 Package Description
 -------------------
-ICypher is an IPython extension for running Cypher queries against a `Neo4J
+ICypher is an IPython extension for running Cypher queries against a `Neo4j
 <http://neo4j.com>`_ graph database within IPython.
 
 .. image:: https://img.shields.io/pypi/v/icypher.svg

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-# Copyright (c) 2014-2018, Lev E. Givon
+# Copyright (c) 2014-2021, Lev E. Givon
 # All rights reserved.
 # Distributed under the terms of the BSD license:
 # http://www.opensource.org/licenses/bsd-license
@@ -76,7 +76,10 @@ def parse(cell, self):
 
     # Reconstruct URI without user/passwd:
     parsed_uri = urlparse.urlparse(uri)
-    parsed_uri = parsed_uri._replace(netloc='%s:%s' % (parsed_uri.hostname, parsed_uri.port))
+    if parsed_uri.port is None:
+        parsed_uri = parsed_uri._replace(netloc=parsed_uri.hostname)
+    else:
+        parsed_uri = parsed_uri._replace(netloc='%s:%s' % (parsed_uri.hostname, parsed_uri.port))
     uri = urlparse.urlunparse(parsed_uri)
 
     return {'uri': uri, 'user': user, 'passwd': passwd,
